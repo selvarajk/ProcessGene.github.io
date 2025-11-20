@@ -3,465 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Cost-Benefit Analyzer for test</title>
+    <title>ComplyGenie | Dynamic Cost-Benefit Analyzer</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        /* Custom scrollbar for a cleaner look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #9ca3af;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
+        :root {
+            --primary-color: #004d99; /* Deep Professional Blue */
+            --secondary-color: #f0f4f8; /* Light background */
+            --accent-color: #00b36b; /* Green for Savings/Positive Metrics */
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            background-color: var(--secondary-color);
         }
-        .input-group {
-            margin-bottom: 1rem;
+        .text-primary { color: var(--primary-color); }
+        .bg-primary { background-color: var(--primary-color); }
+        .text-accent { color: var(--accent-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
     </style>
 </head>
-<body class="p-4 sm:p-8 min-h-screen">
+<body>
 
-    <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-xl p-6 md:p-10">
-
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-indigo-700">Cost-Benefit Analyzer: <span id="productNameDisplay">Your Product</span></h1>
-            <p class="text-gray-500 mt-2">Evaluate the financial viability of a project or product launch (Currency: INR).</p>
-        </header>
-
-        <!-- Product Name Input -->
-        <div class="mb-8">
-            <label for="productName" class="block text-sm font-medium text-gray-700 mb-2">Product/Project Name</label>
-            <input type="text" id="productName" value="New AI Tool Deployment" oninput="updateProductName()" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+    <!-- Header & Navigation (Placeholder for branding) -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary">ComplyGenie AI</h1>
+            <a href="#calculator" class="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover:bg-opacity-90 transition duration-150">Calculate ROI</a>
         </div>
-  <div class="mb-8">
-         <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js">
-</script>
-<langflow-chat
-    window_title="Compliance Gene BOT"
-    flow_id="1e8d3553-ddb5-49f2-b51e-07cc74937147"
-    host_url="https://langflow-proxy-yor1.onrender.com">
-</langflow-chat>
-         </div> 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- 1. Cost Inputs -->
-            <section class="lg:col-span-2 bg-indigo-50 p-6 rounded-xl border border-indigo-200">
-                <h2 class="text-2xl font-semibold text-indigo-800 mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8v4m0 4v4m-3.297-5.187A11.955 11.955 0 0112 10.517v4.364m-3.297-5.187L12 10.517m0-4.364l-3.297 5.187M12 10.517l3.297 5.187m-3.297-5.187L12 10.517m0-4.364l-3.297 5.187"></path></svg>
-                    Costs & Investment (All figures in INR)
-                </h2>
+    </header>
 
-                <!-- One-Time Costs -->
-                <div class="mb-6 border-b pb-4">
-                    <h3 class="text-xl font-medium text-gray-800 mb-3">One-Time Costs (Initial Investment - Year 0)</h3>
-                    
-                    <!-- Development Period -->
-                    <div class="input-group bg-white p-3 rounded-lg border-l-4 border-indigo-500 mb-4">
-                        <label for="development_months" class="block text-sm font-bold text-indigo-700">Development Period (Months: 1-12)</label>
-                        <input type="number" id="development_months" value="6" min="1" max="12" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
+    <!-- 1. Hero Section -->
+    <section class="bg-primary text-white py-20 md:py-32">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block bg-white text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-widest">Regulatory Intelligence AI</span>
+            <h2 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
+                Instantly Interpret RBI, SEBI, and IRDAI Circulars with 95% Accuracy
+            </h2>
+            <p class="text-xl md:text-2xl font-light mb-8 opacity-90">
+                Automate compliance ingestion, cut interpretation time by <span class="font-bold text-accent">75%</span>, and eliminate regulatory risk exposure for your NBFC or fintech.
+            </p>
+            <a href="#calculator" class="cta-button inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-medium rounded-xl shadow-2xl text-primary bg-white hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                Calculate Your Custom ROI Now
+            </a>
+        </div>
+    </section>
 
-                    <div class="input-group">
-                        <label for="cost_initial_dev" class="text-sm text-gray-600">Dev & Setup (Non-Staff)</label>
-                        <input type="number" id="cost_initial_dev" value="500000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="cost_training" class="text-sm text-gray-600">Initial Training & Documentation</label>
-                        <input type="number" id="cost_training" value="50000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-
-                    <h4 class="font-semibold text-sm text-indigo-700 mt-4 mb-2">FTE Development Cost (Annual Input, Prorated by Months)</h4>
-                    <div class="input-group ml-4">
-                        <label for="cost_fte_salary" class="text-sm text-gray-600">FTE Salary Component (Input Annual Cost)</label>
-                        <input type="number" id="cost_fte_salary" value="1200000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                    <div class="input-group ml-4">
-                        <label for="cost_fte_seat" class="text-sm text-gray-600">FTE Seat/Overhead Cost (Input Annual Cost)</label>
-                        <input type="number" id="cost_fte_seat" value="100000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-
-                    <h4 class="font-semibold text-sm text-indigo-700 mt-4 mb-2">Infrastructure Cost (Initial)</h4>
-                    <div class="input-group ml-4">
-                        <label for="cost_infra_dev" class="text-sm text-gray-600">Infrastructure Cost (Development/Testing)</label>
-                        <input type="number" id="cost_infra_dev" value="150000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
+    <!-- 2. Problem Summary -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-gray-900 mb-10 text-center">The Challenge: Navigating India's Regulatory Tides Manually</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-secondary rounded-xl shadow-lg border border-gray-200">
+                    <div class="text-accent text-3xl mb-3">⏱️</div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Interpretation Delays</h4>
+                    <p class="text-gray-600">Manual review of dozens of circulars monthly leads to critical delays, extending time-to-compliance far beyond internal SLAs.</p>
                 </div>
+                <div class="p-6 bg-secondary rounded-xl shadow-lg border border-gray-200">
+                    <div class="text-accent text-3xl mb-3">❌</div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">Inconsistent Insights</h4>
+                    <p class="text-gray-600">Reliance on email chains and siloed teams results in varying interpretations across Legal, Operations, and Risk, creating audit vulnerabilities.</p>
+                </div>
+                <div class="p-6 bg-secondary rounded-xl shadow-lg border border-gray-200">
+                    <div class="text-accent text-3xl mb-3">💰</div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">High Risk & Penalty Exposure</h4>
+                    <p class="text-gray-600">The high volume and complexity of RBI directives dramatically increase the probability of missed deadlines and associated financial penalties.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Recurring Annual Costs -->
+    <!-- 3. Dynamic Cost–Benefit Analyzer (User-Side Savings) -->
+    <section id="calculator" class="py-16 md:py-24 bg-secondary">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-extrabold text-gray-900 mb-3">Dynamic ROI Calculator</h3>
+                <p class="text-lg text-gray-600">Quantify the exact financial impact ComplyGenie AI will have on your organization.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-100">
+                <!-- Input Fields -->
                 <div>
-                    <h3 class="text-xl font-medium text-gray-800 mb-3">Recurring Annual Costs (Year 1 onwards)</h3>
-                    
-                    <div class="input-group">
-                        <label for="cost_annual_maintenance" class="text-sm text-gray-600">Software Licensing (Annual)</label>
-                        <input type="number" id="cost_annual_maintenance" value="200000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
+                    <h4 class="text-2xl font-bold text-primary mb-6 border-b pb-3">Your Current Compliance Metrics</h4>
+                    <div class="space-y-6">
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Monthly Regulatory Circulars Handled (e.g., RBI/SEBI)</span>
+                            <input type="number" id="circularsMonthly" value="50" min="1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary" oninput="calculateROI()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Average Time Spent Per Circular (Hours)</span>
+                            <input type="number" id="timePerCircular" value="8" min="0.5" step="0.5" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary" oninput="calculateROI()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Average Cost Per Employee Hour (INR)</span>
+                            <input type="number" id="costPerHour" value="1500" min="100" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary" oninput="calculateROI()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Estimated Annual Penalty Exposure (INR - Max Risk)</span>
+                            <input type="number" id="penaltyExposure" value="20000000" min="0" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary" oninput="calculateROI()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Internal Turnaround SLA (Days)</span>
+                            <input type="number" id="slaTurnaround" value="15" min="1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary" oninput="calculateROI()">
+                        </label>
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="cost_staffing" class="text-sm text-gray-600">Project Manager/Misc. Staffing</label>
-                        <input type="number" id="cost_staffing" value="300000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-
-                    <h4 class="font-semibold text-sm text-indigo-700 mt-4 mb-2">Operational Costs (Annual)</h4>
-                    <div class="input-group ml-4">
-                        <label for="cost_infra_golive" class="text-sm text-gray-600">Infrastructure Cost (Post Go-Live / Production)</label>
-                        <input type="number" id="cost_infra_golive" value="300000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                    <div class="input-group ml-4">
-                        <label for="cost_token" class="text-sm text-gray-600">Token/Usage Cost (Generative AI, Annual)</label>
-                        <input type="number" id="cost_token" value="50000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                    <div class="input-group ml-4">
-                        <label for="cost_aws_ops" class="text-sm text-gray-600">AWS Ops Engineer (Annual Salary)</label>
-                        <input type="number" id="cost_aws_ops" value="800000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
-                </div>
-            </section>
-
-            <!-- 2. Benefit Inputs -->
-            <section class="lg:col-span-1 bg-green-50 p-6 rounded-xl border border-green-200">
-                <h2 class="text-2xl font-semibold text-green-800 mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    Quantifiable Benefits (Annual)
-                </h2>
-
-                <div class="input-group">
-                    <label for="benefit_revenue" class="text-sm text-gray-600">Increased Annual Revenue / Sales Lift</label>
-                    <input type="number" id="benefit_revenue" value="1500000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                </div>
-                
-                <!-- NEW: Retained ARR -->
-                <div class="input-group">
-                    <label for="benefit_arr" class="text-sm text-gray-600">Retained Annual Recurring Revenue (ARR)</label>
-                    <input type="number" id="benefit_arr" value="0" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                </div>
-                
-                <!-- NEW: Operational Efficiency -->
-                <div class="input-group">
-                    <label for="benefit_efficiency" class="text-sm text-gray-600">Operational Efficiency Gains (Monetary Value)</label>
-                    <input type="number" id="benefit_efficiency" value="0" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
                 </div>
 
-                <!-- NEW: Future Revenue Projections -->
-                <div class="input-group">
-                    <label for="benefit_future_revenue" class="text-sm text-gray-600">Future Revenue Projections (Annualized)</label>
-                    <input type="number" id="benefit_future_revenue" value="0" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                </div>
-
-                <div class="input-group">
-                    <label for="benefit_savings" class="text-sm text-gray-600">Operational Cost Savings (e.g., reduced errors)</label>
-                    <input type="number" id="benefit_savings" value="400000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                </div>
-                <div class="input-group">
-                    <label for="benefit_productivity" class="text-sm text-gray-600">Productivity Gains (Monetized time savings)</label>
-                    <input type="number" id="benefit_productivity" value="500000" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                </div>
-
-                <div class="mt-8 border-t pt-4">
-                    <h3 class="text-xl font-medium text-gray-800 mb-3">Analysis Parameters</h3>
-                    <div class="input-group">
-                        <label for="analysis_period" class="text-sm text-gray-600">Analysis Period (Years)</label>
-                        <input type="number" id="analysis_period" value="5" min="1" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
+                <!-- Outputs -->
+                <div>
+                    <h4 class="text-2xl font-bold text-accent mb-6 border-b pb-3">Your Annual Savings & ROI</h4>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-green-50 rounded-xl shadow-inner border border-green-200">
+                            <p class="text-sm text-gray-600">Annual Hours Saved (75% Efficiency)</p>
+                            <p id="annualHoursSaved" class="text-3xl font-extrabold text-accent">0</p>
+                            <p class="text-xs text-gray-500">Formula: Monthly Circulars × Hours/Circular × 0.75 × 12</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-xl shadow-inner border border-green-200">
+                            <p class="text-sm text-gray-600">Total Annual Cost Savings (INR)</p>
+                            <p id="annualCostSavings" class="text-3xl font-extrabold text-accent">₹ 0</p>
+                            <p class="text-xs text-gray-500">Formula: Hours Saved × Hourly Cost</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-xl shadow-inner border border-blue-200">
+                            <p class="text-sm text-gray-600">Value of Risk & Penalty Reduction (50% Risk Reduction)</p>
+                            <p id="riskReductionValue" class="text-3xl font-extrabold text-blue-600">₹ 0</p>
+                            <p class="text-xs text-gray-500">Formula: Penalty Exposure × 40% Risk Probability × 50% Reduction</p>
+                        </div>
+                        <div class="p-4 bg-primary text-white rounded-xl shadow-lg">
+                            <p class="text-sm font-semibold opacity-90">Total Annual Benefit (Cost Savings + Risk Reduction)</p>
+                            <p id="totalAnnualBenefit" class="text-4xl font-extrabold mt-1">₹ 0</p>
+                        </div>
+                        <div class="pt-4 border-t border-gray-200">
+                            <p class="text-base font-semibold text-gray-700">Estimated FTE Equivalent Saved</p>
+                            <p id="fteSaved" class="text-2xl font-bold text-gray-800">0.00 FTEs</p>
+                            <p class="text-base font-semibold text-gray-700 mt-3">Time-to-Compliance Improvement</p>
+                            <p id="slaImprovement" class="text-2xl font-bold text-gray-800">0.0 Days (50% faster)</p>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="discount_rate" class="text-sm text-gray-600">Discount Rate (%) for NPV</label>
-                        <input type="number" id="discount_rate" value="10" min="0" max="100" oninput="calculateCBA()" class="w-full p-2 border rounded-md mt-1">
-                    </div>
                 </div>
-            </section>
+            </div>
         </div>
-<div>
-  
-</div>
-        <!-- 3. Results Section -->
-        <section class="mt-10 p-6 bg-gray-50 rounded-xl shadow-lg border-t-4 border-indigo-500">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Financial Analysis Results</h2>
+    </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <!-- Total Costs -->
-                <div class="bg-red-50 p-4 rounded-lg text-center shadow-md">
-                    <p class="text-sm font-medium text-red-600">Total Project Costs</p>
-                    <p id="totalCost" class="text-3xl font-extrabold text-red-800 mt-1">₹0</p>
-                    <p class="text-xs text-gray-500">(Initial + Annualized)</p>
-                </div>
-
-                <!-- Total Benefits -->
-                <div class="bg-green-50 p-4 rounded-lg text-center shadow-md">
-                    <p class="text-sm font-medium text-green-600">Total Project Benefits</p>
-                    <p id="totalBenefit" class="text-3xl font-extrabold text-green-800 mt-1">₹0</p>
-                    <p class="text-xs text-gray-500">(Over Analysis Period)</p>
-                </div>
-
-                <!-- ROI -->
-                <div class="bg-yellow-50 p-4 rounded-lg text-center shadow-md">
-                    <p class="text-sm font-medium text-yellow-600">Return on Investment (ROI)</p>
-                    <p id="roi" class="text-3xl font-extrabold text-yellow-800 mt-1">0%</p>
-                    <p class="text-xs text-gray-500">(Benefit-Cost) / Cost</p>
-                </div>
-
-                <!-- NPV -->
-                <div class="p-4 rounded-lg text-center shadow-md" id="npvBox">
-                    <p class="text-sm font-medium text-blue-600">Net Present Value (NPV)</p>
-                    <p id="npv" class="text-3xl font-extrabold text-blue-800 mt-1">₹0</p>
-                    <p class="text-xs text-gray-500">(@ <span id="npvDiscountRate">10%</span> Discount Rate)</p>
-                </div>
+    <!-- 4. Internal Development Economics Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-extrabold text-gray-900 mb-3">Internal Development Economics</h3>
+                <p class="text-lg text-gray-600">Transparently understanding the investment required to build the ComplyGenie AI feature in-house.</p>
             </div>
 
-            <!-- Conclusion Message -->
-            <div id="conclusionMessage" class="mt-8 p-4 rounded-lg text-center font-semibold transition-colors duration-300">
-                <p>Enter your financial data above to see the analysis.</p>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Inputs & Team Structure -->
+                <div class="lg:col-span-2 bg-secondary p-8 rounded-2xl shadow-xl">
+                    <h4 class="text-2xl font-bold text-primary mb-6">4-Month Development & Pilot Cost Drivers</h4>
+                    <p class="mb-6 text-gray-600">Estimate monthly salary costs for the dedicated 4-month build team. Defaults based on India tech salaries.</p>
+                    
+                    <div id="teamCosts" class="grid sm:grid-cols-2 gap-4">
+                        <!-- Inputs for Team Salaries -->
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">AI/ML Engineer (Monthly Salary INR)</span>
+                            <input type="number" data-role="AI/ML Engineer" value="400000" min="50000" class="team-salary mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Backend Engineer (Monthly Salary INR)</span>
+                            <input type="number" data-role="Backend Engineer" value="300000" min="50000" class="team-salary mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Frontend Engineer (Monthly Salary INR)</span>
+                            <input type="number" data-role="Frontend Engineer" value="250000" min="50000" class="team-salary mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Product Manager (Monthly Salary INR)</span>
+                            <input type="number" data-role="Product Manager" value="350000" min="50000" class="team-salary mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">Compliance SME (Monthly Salary INR)</span>
+                            <input type="number" data-role="Compliance SME" value="280000" min="50000" class="team-salary mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-medium">QA Engineer (Monthly Salary INR)</span>
+                            <input type="number" data-role="QA Engineer" value="150000" min="50000" class="team-salary mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                        </label>
+                    </div>
+                    <label class="block mt-6">
+                        <span class="text-gray-700 font-medium">Cloud/Infra Cost Per Month (INR)</span>
+                        <input type="number" id="infraCostMonthly" value="150000" min="0" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-3" oninput="calculateInternalEconomics()">
+                    </label>
+                </div>
+
+                <!-- Internal Outputs -->
+                <div class="bg-primary text-white p-8 rounded-2xl shadow-xl">
+                    <h4 class="text-2xl font-bold mb-6">Pilot & Development Outcomes</h4>
+                    <div class="space-y-4">
+                        <div class="border-b border-white border-opacity-30 pb-3">
+                            <p class="text-sm opacity-80">Total 4-Month Development Cost (Internal Build)</p>
+                            <p id="totalDevelopmentCost" class="text-3xl font-extrabold text-accent">₹ 0</p>
+                            <p class="text-xs opacity-70">Formula: (Σ Monthly Salaries × 4) + (Infra × 4)</p>
+                        </div>
+                        <div class="border-b border-white border-opacity-30 pb-3">
+                            <p class="text-sm opacity-80">Payback Period (Months)</p>
+                            <p id="paybackPeriod" class="text-3xl font-extrabold text-accent">0.0 Months</p>
+                            <p class="text-xs opacity-70">Formula: Total Dev Cost / (Monthly Savings)</p>
+                        </div>
+                        <div class="border-b border-white border-opacity-30 pb-3">
+                            <p class="text-sm opacity-80">Cost-Benefit Ratio (CBR)</p>
+                            <p id="cbrRatio" class="text-3xl font-extrabold text-accent">0.00 : 1</p>
+                            <p class="text-xs opacity-70">Formula: Total Annual Benefit / Total Development Cost</p>
+                        </div>
+                        <div class="pt-2">
+                            <p class="text-sm opacity-80">Pilot ROI (Based on 50% Dev Cost as Pilot Cost)</p>
+                            <p id="pilotROI" class="text-3xl font-extrabold text-white">0.00 %</p>
+                        </div>
+                        <div class="pt-2">
+                            <p class="text-sm opacity-80">Net Benefit of Pilot</p>
+                            <p id="netBenefitPilot" class="text-2xl font-extrabold text-white">₹ 0</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Detailed Cash Flow Table -->
-        <section class="mt-10">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Detailed Cash Flow Projections</h2>
-            <div class="overflow-x-auto rounded-lg shadow-md">
-                <table class="min-w-full bg-white border-collapse">
-                    <thead class="bg-gray-200">
-                        <tr>
-                            <th class="p-3 text-left text-sm font-semibold text-gray-600">Year</th>
-                            <th class="p-3 text-right text-sm font-semibold text-gray-600">Annual Benefit</th>
-                            <th class="p-3 text-right text-sm font-semibold text-gray-600">Annual Cost</th>
-                            <th class="p-3 text-right text-sm font-semibold text-gray-600">Net Cash Flow</th>
-                            <th class="p-3 text-right text-sm font-semibold text-gray-600">Discount Factor</th>
-                            <th class="p-3 text-right text-sm font-semibold text-gray-600 bg-indigo-100 rounded-tr-lg">Present Value</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cashFlowTableBody" class="divide-y divide-gray-200">
-                        <!-- Rows populated by JavaScript -->
-                    </tbody>
-                </table>
+    <!-- 5. Visualization Section Placeholder -->
+    <section class="py-16 bg-secondary">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-gray-900 mb-10 text-center">Visualizing Your Strategic Advantage</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+                    <p class="text-4xl font-extrabold text-primary mb-3">ROI</p>
+                    <p class="text-lg font-semibold text-gray-800">Bar Graph</p>
+                    <p class="text-sm text-gray-500">Compare savings vs subscription cost.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+                    <p class="text-4xl font-extrabold text-primary mb-3">Timeline</p>
+                    <p class="text-lg font-semibold text-gray-800">Payback Period</p>
+                    <p class="text-sm text-gray-500">Show exact month when investment turns positive.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+                    <p class="text-4xl font-extrabold text-primary mb-3">Waterfall</p>
+                    <p class="text-lg font-semibold text-gray-800">Cost Breakdown</p>
+                    <p class="text-sm text-gray-500">Savings contributions (Time, Risk, Manual Effort).</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+                    <p class="text-4xl font-extrabold text-primary mb-3">Donut</p>
+                    <p class="text-lg font-semibold text-gray-800">Risk Reduction</p>
+                    <p class="text-sm text-gray-500">Visual percentage of annual penalty risk eliminated.</p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </div>
+    <!-- 6. Benefits Section -->
+    <section class="py-16 md:py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-4xl font-extrabold text-gray-900 mb-10 text-center">Why ComplyGenie AI is the Enterprise Standard</h3>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 text-accent text-2xl">⚡</div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900">SLA-Driven Smart Alerts</h4>
+                        <p class="text-gray-600">Never miss a deadline. Our system intelligently flags necessary actions and tracks completion against your internal SLAs.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 text-accent text-2xl">🔗</div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900">Single Source of Truth</h4>
+                        <p class="text-gray-600">One definitive interpretation, instantly accessible to all departments (Legal, Risk, Operations), ensuring consistency and cohesion.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 text-accent text-2xl">💼</div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900">Audit Readiness, Automated</h4>
+                        <p class="text-gray-600">Every interpretation, action, and version is automatically logged, providing iron-clad versioning and complete audit trails for regulators.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 7. Testimonials & 8. Pricing Value Narrative -->
+    <section class="py-16 md:py-20 bg-secondary">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Testimonial -->
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border border-gray-100">
+                    <p class="text-xl italic text-gray-700 leading-relaxed">
+                        "Before ComplyGenie, our team spent 80% of its time on manual circular ingestion. Now, we focus purely on strategic execution. The risk reduction alone justified the investment within the first quarter."
+                    </p>
+                    <div class="mt-6 border-t pt-4">
+                        <p class="font-bold text-gray-900">Anjali Rao</p>
+                        <p class="text-sm text-primary">Head of Regulatory Compliance, Top NBFC India</p>
+                    </div>
+                </div>
+
+                <!-- Pricing & Value Narrative -->
+                <div class="p-8 bg-primary rounded-2xl text-white shadow-2xl">
+                    <h4 class="text-3xl font-bold mb-4">Pricing Aligned with Your Savings</h4>
+                    <p class="text-lg opacity-90 mb-6">
+                        The cost of our annual subscription is typically less than **1/3rd** of the FTE cost you save annually, and a fraction of the regulatory penalty exposure you eliminate.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 opacity-90">
+                        <li>Subscription tiers scale with the complexity and volume of regulatory feeds required.</li>
+                        <li>Eliminate the need for a costly 4-month in-house development cycle.</li>
+                        <li>Achieve payback period in months, not years.</li>
+                    </ul>
+                    <a href="#calculator" class="mt-6 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl shadow-lg text-primary bg-accent hover:bg-green-600 transition duration-300">
+                        See Your Immediate Payback
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Final CTA -->
+    <section class="py-12 bg-white text-center">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-gray-900 mb-6">Ready to Automate Compliance Risk?</h3>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                <a href="#calculator" class="cta-button inline-flex items-center justify-center px-8 py-3 border border-transparent text-lg font-medium rounded-xl shadow-lg text-white bg-primary hover:bg-opacity-90 transition duration-300 transform hover:scale-105">
+                    Calculate Your Savings
+                </a>
+                <a href="#" class="cta-button inline-flex items-center justify-center px-8 py-3 border border-primary text-lg font-medium rounded-xl shadow-lg text-primary bg-white hover:bg-secondary transition duration-300 transform hover:scale-105">
+                    Book a Live Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            © 2025 ComplyGenie AI. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript for Dynamic Calculation -->
     <script>
-        // Global utility function for currency formatting (Updated to INR)
-        const formatter = new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
-        });
+        // Constants (Based on industry standards/assumptions)
+        const EFFICIENCY_GAIN = 0.75; // 75% efficiency gain from AI automation
+        const RISK_PROBABILITY_ASSUMPTION = 0.4; // Assuming 40% chance of penalty exposure annually
+        const RISK_REDUCTION_GAIN = 0.5; // 50% reduction in risk probability due to AI
+        const FTE_HOURS_PER_YEAR = 2080; // Standard working hours per year (approx)
+        const DEV_TIME_MONTHS = 4;
+        const PILOT_COST_RATIO = 0.5; // Pilot cost is 50% of total development cost
 
-        // --- Helper Functions ---
-
-        /**
-         * Parses input value as a number, defaulting to 0 if invalid.
-         * @param {string} id - The ID of the input element.
-         * @returns {number} The parsed number.
-         */
-        const getInputValue = (id) => {
-            const element = document.getElementById(id);
-            const value = parseFloat(element.value);
-            return isNaN(value) || value < 0 ? 0 : value;
-        };
-
-        /**
-         * Calculates the Discount Factor for a given year and rate.
-         * @param {number} year - The cash flow year (starting from 0).
-         * @param {number} rate - The discount rate (as a decimal).
-         * @returns {number} The discount factor.
-         */
-        const calculateDiscountFactor = (year, rate) => {
-            if (year === 0) return 1; // Year 0 (initial investment) is always 1
-            return 1 / Math.pow(1 + rate, year);
-        };
-
-        // --- Main Calculation Logic ---
-
-        const calculateCBA = () => {
-            // 1. Get Inputs and Parameters
-            
-            const developmentMonths = getInputValue('development_months');
-            // Proration factor ensures only costs for the development duration are included in Year 0.
-            const prorationFactor = developmentMonths > 0 && developmentMonths <= 12 ? developmentMonths / 12 : 1;
-
-            // FTE costs are annual inputs that need to be prorated for the development period.
-            const fteSalary = getInputValue('cost_fte_salary');
-            const fteSeat = getInputValue('cost_fte_seat');
-
-            const proratedFteCost = (fteSalary + fteSeat) * prorationFactor;
-
-
-            // ------------------------------------
-            // ONE-TIME COSTS (Year 0)
-            // ------------------------------------
-            const oneTimeCost = getInputValue('cost_initial_dev') + 
-                                getInputValue('cost_training') + 
-                                proratedFteCost + // Use prorated amount
-                                getInputValue('cost_infra_dev');
-
-            // ------------------------------------
-            // RECURRING ANNUAL COSTS (Year 1 onwards)
-            // ------------------------------------
-            const annualRecurringCost = getInputValue('cost_annual_maintenance') + 
-                                        getInputValue('cost_staffing') +
-                                        getInputValue('cost_infra_golive') +
-                                        getInputValue('cost_token') +
-                                        getInputValue('cost_aws_ops');
-
-            // ANNUAL BENEFIT CALCULATION (Updated to include new fields)
-            const annualBenefit = getInputValue('benefit_revenue') + 
-                                  getInputValue('benefit_arr') + // NEW
-                                  getInputValue('benefit_efficiency') + // NEW
-                                  getInputValue('benefit_future_revenue') + // NEW
-                                  getInputValue('benefit_savings') + 
-                                  getInputValue('benefit_productivity');
-
-
-            const analysisPeriod = Math.floor(getInputValue('analysis_period'));
-            const discountRatePercent = getInputValue('discount_rate');
-            const discountRate = discountRatePercent / 100;
-            
-            // Update discount rate display for NPV
-            document.getElementById('npvDiscountRate').textContent = `${discountRatePercent}%`;
-            
-            // Ensure analysis period is at least 1
-            const years = analysisPeriod > 0 ? analysisPeriod : 1;
-            
-            // 2. Calculate Cash Flow for NPV/ROI
-            const cashFlows = [];
-            let totalDiscountedCF = 0;
-            let totalLifetimeBenefit = 0;
-            let totalLifetimeCost = oneTimeCost; // Starts with Year 0 cost
-
-            // Year 0: Initial Investment (Cost is negative)
-            const year0CF = -oneTimeCost;
-            cashFlows.push({
-                year: 0,
-                annualBenefit: 0,
-                annualCost: oneTimeCost,
-                netCF: year0CF,
-                discountFactor: 1,
-                presentValue: year0CF
-            });
-            totalDiscountedCF += year0CF;
-
-            // Years 1 to N: Annual Costs and Benefits
-            for (let y = 1; y <= years; y++) {
-                const netCF = annualBenefit - annualRecurringCost;
-                const discountFactor = calculateDiscountFactor(y, discountRate);
-                const presentValue = netCF * discountFactor;
-
-                totalLifetimeBenefit += annualBenefit;
-                totalLifetimeCost += annualRecurringCost; // Add full annual recurring cost
-                totalDiscountedCF += presentValue;
-                
-                cashFlows.push({
-                    year: y,
-                    annualBenefit: annualBenefit,
-                    annualCost: annualRecurringCost,
-                    netCF: netCF,
-                    discountFactor: discountFactor,
-                    presentValue: presentValue
-                });
-            }
-
-            // 3. Calculate Final Metrics
-            const totalProjectCost = totalLifetimeCost; // Sum of all costs including initial
-            const totalProjectBenefit = totalLifetimeBenefit; // Sum of all benefits
-
-            let roiValue = 0;
-            // ROI = (Total Benefits - Total Costs) / Total Costs
-            if (totalProjectCost > 0) {
-                roiValue = ((totalProjectBenefit - totalProjectCost) / totalProjectCost) * 100;
-            }
-
-            const npvValue = totalDiscountedCF;
-
-            // 4. Update UI
-            updateResultsDisplay(totalProjectCost, totalProjectBenefit, roiValue, npvValue);
-            updateCashFlowTable(cashFlows);
-            updateConclusionMessage(roiValue, npvValue);
-        };
-
-        // --- UI Update Logic ---
-
-        const updateProductName = () => {
-            const name = document.getElementById('productName').value || 'Your Product';
-            document.getElementById('productNameDisplay').textContent = name;
-            calculateCBA(); // Recalculate if the name changes (for fresh start feel)
-        };
-
-        const updateResultsDisplay = (totalCost, totalBenefit, roi, npv) => {
-            document.getElementById('totalCost').textContent = formatter.format(totalCost);
-            document.getElementById('totalBenefit').textContent = formatter.format(totalBenefit);
-            
-            // Format ROI
-            const roiText = `${roi.toFixed(1)}%`;
-            document.getElementById('roi').textContent = roiText;
-
-            // Format NPV
-            document.getElementById('npv').textContent = formatter.format(npv);
-
-            // Conditional styling for NPV box
-            const npvBox = document.getElementById('npvBox');
-            if (npv >= 0) {
-                npvBox.className = 'p-4 rounded-lg text-center shadow-md bg-blue-100';
-            } else {
-                npvBox.className = 'p-4 rounded-lg text-center shadow-md bg-red-100';
-            }
-        };
-
-        const updateCashFlowTable = (cashFlows) => {
-            const tableBody = document.getElementById('cashFlowTableBody');
-            tableBody.innerHTML = '';
-
-            cashFlows.forEach(cf => {
-                const isInitialYear = cf.year === 0;
-                const netCFClass = cf.netCF >= 0 ? 'text-green-600 font-medium' : 'text-red-600 font-medium';
-                const presentValueClass = cf.presentValue >= 0 ? 'text-indigo-700 font-extrabold' : 'text-red-700 font-extrabold';
-                
-                const row = document.createElement('tr');
-                row.className = isInitialYear ? 'bg-gray-100 border-t-2 border-gray-300' : 'hover:bg-gray-50';
-
-                row.innerHTML = `
-                    <td class="p-3 text-left text-sm font-bold">${isInitialYear ? 'Initial (Year 0)' : `Year ${cf.year}`}</td>
-                    <td class="p-3 text-right text-sm">${isInitialYear ? '-' : formatter.format(cf.annualBenefit)}</td>
-                    <td class="p-3 text-right text-sm">${formatter.format(cf.annualCost)}</td>
-                    <td class="p-3 text-right text-sm ${netCFClass}">${formatter.format(cf.netCF)}</td>
-                    <td class="p-3 text-right text-sm">${cf.discountFactor.toFixed(3)}</td>
-                    <td class="p-3 text-right text-sm ${presentValueClass} bg-indigo-50">${formatter.format(cf.presentValue)}</td>
-                `;
-                tableBody.appendChild(row);
+        // Helper function for INR formatting
+        const formatINR = (amount) => {
+            if (isNaN(amount) || amount === null) return '₹ 0';
+            return '₹ ' + Math.round(amount).toLocaleString('en-IN', {
+                maximumFractionDigits: 0
             });
         };
 
-        const updateConclusionMessage = (roi, npv) => {
-            const messageBox = document.getElementById('conclusionMessage');
-            let message = '';
-            let boxClass = 'mt-8 p-4 rounded-lg text-center font-semibold ';
-
-            if (npv > 0) {
-                message = `The analysis shows a positive NPV of ${formatter.format(npv)} and an ROI of ${roi.toFixed(1)}%. This project is financially viable and recommended!`;
-                boxClass += 'bg-green-100 text-green-700 border border-green-300';
-            } else if (npv < 0) {
-                message = `The analysis indicates a negative NPV of ${formatter.format(npv)}. The project is not financially viable under these assumptions. ROI: ${roi.toFixed(1)}%.`;
-                boxClass += 'bg-red-100 text-red-700 border border-red-300';
-            } else {
-                message = `The project's NPV is zero. The expected return exactly equals the cost of capital. ROI: 0%.`;
-                boxClass += 'bg-yellow-100 text-yellow-700 border border-yellow-300';
-            }
-
-            messageBox.className = boxClass;
-            messageBox.querySelector('p').textContent = message;
+        const formatPercent = (value) => {
+            if (isNaN(value) || value === null) return '0.00 %';
+            return value.toFixed(2) + ' %';
         };
 
-        // Initial setup
-        window.onload = () => {
-            updateProductName(); // This also calls calculateCBA()
+        const calculateROI = () => {
+            // --- 1. Get User Inputs ---
+            const circularsMonthly = parseFloat(document.getElementById('circularsMonthly').value) || 0;
+            const timePerCircular = parseFloat(document.getElementById('timePerCircular').value) || 0;
+            const costPerHour = parseFloat(document.getElementById('costPerHour').value) || 0;
+            const penaltyExposure = parseFloat(document.getElementById('penaltyExposure').value) || 0;
+            const slaTurnaround = parseFloat(document.getElementById('slaTurnaround').value) || 0;
+
+            // --- 2. User ROI Calculations ---
+
+            // Annualized hours spent manually that AI can optimize
+            const annualHoursSaved = (circularsMonthly * timePerCircular * EFFICIENCY_GAIN) * 12;
+            
+            // Financial Savings
+            const annualCostSavings = annualHoursSaved * costPerHour;
+
+            // Risk Reduction Value
+            // Value = Annual Exposure * Assumed Probability * AI Reduction Gain
+            const riskReductionValue = penaltyExposure * RISK_PROBABILITY_ASSUMPTION * RISK_REDUCTION_GAIN;
+
+            // Total Annual User Benefit
+            const totalAnnualBenefit = annualCostSavings + riskReductionValue;
+
+            // Other Metrics
+            const fteSaved = annualHoursSaved / FTE_HOURS_PER_YEAR;
+            const slaImprovementDays = slaTurnaround * 0.5; // 50% reduction
+
+            // --- 3. Update User ROI Outputs ---
+            document.getElementById('annualHoursSaved').textContent = Math.round(annualHoursSaved).toLocaleString('en-IN');
+            document.getElementById('annualCostSavings').textContent = formatINR(annualCostSavings);
+            document.getElementById('riskReductionValue').textContent = formatINR(riskReductionValue);
+            document.getElementById('totalAnnualBenefit').textContent = formatINR(totalAnnualBenefit);
+            document.getElementById('fteSaved').textContent = fteSaved.toFixed(2) + ' FTEs';
+            document.getElementById('slaImprovement').textContent = slaImprovementDays.toFixed(1) + ' Days (50% faster)';
+
+            // Trigger Internal Economics calculation with the new benefit value
+            calculateInternalEconomics(totalAnnualBenefit);
         };
 
+        const calculateInternalEconomics = (userBenefit) => {
+            const totalAnnualBenefit = userBenefit !== undefined ? userBenefit : (parseFloat(document.getElementById('totalAnnualBenefit').textContent.replace(/[^0-9.]/g, '')) || 0);
+
+            // --- 1. Get Internal Inputs ---
+            const teamSalaries = Array.from(document.querySelectorAll('.team-salary')).map(input => parseFloat(input.value) || 0);
+            const infraCostMonthly = parseFloat(document.getElementById('infraCostMonthly').value) || 0;
+
+            // --- 2. Internal Economics Calculations ---
+            
+            // Total Monthly Employee Cost
+            const totalMonthlyEmployeeCost = teamSalaries.reduce((sum, salary) => sum + salary, 0);
+
+            // Total Development Cost
+            const totalDevelopmentCost = 
+                (totalMonthlyEmployeeCost * DEV_TIME_MONTHS) + 
+                (infraCostMonthly * DEV_TIME_MONTHS);
+
+            // Monthly User Benefit (for Payback calculation)
+            const monthlyUserBenefit = totalAnnualBenefit / 12;
+
+            // Payback Period (Months)
+            const paybackPeriod = monthlyUserBenefit > 0 ? totalDevelopmentCost / monthlyUserBenefit : 0;
+            
+            // Cost-Benefit Ratio (CBR)
+            const cbrRatio = totalDevelopmentCost > 0 ? totalAnnualBenefit / totalDevelopmentCost : 0;
+
+            // Pilot Economics (Assuming pilot cost is 50% of the total dev cost)
+            const pilotCost = totalDevelopmentCost * PILOT_COST_RATIO;
+            const pilotBenefit = totalAnnualBenefit; // Full annual benefit is realized after pilot
+            const netBenefitPilot = pilotBenefit - pilotCost;
+            
+            // Pilot ROI (%)
+            const pilotROI = pilotCost > 0 ? (netBenefitPilot / pilotCost) * 100 : 0;
+
+
+            // --- 3. Update Internal Outputs ---
+            document.getElementById('totalDevelopmentCost').textContent = formatINR(totalDevelopmentCost);
+            document.getElementById('paybackPeriod').textContent = paybackPeriod.toFixed(1) + ' Months';
+            document.getElementById('cbrRatio').textContent = cbrRatio.toFixed(2) + ' : 1';
+            document.getElementById('pilotROI').textContent = formatPercent(pilotROI);
+            document.getElementById('netBenefitPilot').textContent = formatINR(netBenefitPilot);
+        };
+
+        // Initialize calculations on page load
+        window.onload = function() {
+            // Set initial user benefit to 0 before calculating
+            document.getElementById('totalAnnualBenefit').textContent = formatINR(0);
+            calculateROI(); 
+        };
     </script>
+
 </body>
 </html>
